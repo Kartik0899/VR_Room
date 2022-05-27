@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+    <title>VR Portfolio</title>
+    <script src="https://aframe.io/releases/0.3.2/aframe.js"></script>
+    <script src="//cdn.rawgit.com/donmccurdy/aframe-extras/v2.6.1/dist/aframe-extras.min.js"></script>
+
+    <!-- <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script> -->
+
+    <!-- <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script> -->
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script>
+
+
+</head>
+
+<body>
+    <!-- <a-scene> -->
+    <a-scene fog="type: linear; color: #808080; far: 25; near: 0">
+
+        <!-- Load Assets -->
+        <a-assets>
+            <!-- global -->
+            <!-- <img id="texture-floor" src="img/other/floor.jpg"> -->
+            <img id="texture-floor1" src="img/floor/f2.jpg">
+            <img id="texture-wall"
+                src="https://image.made-in-china.com/202f0j00GTLYPBwKgMbR/Good-Brightness-24PCS-RGB-Color-Outdoor-Waterproof-LED-Wall-Washer.jpg">
+
+            <img id="ceiling" src="img/floor/c2.jpg" crossorigin="anonymous">
+
+            <a-asset-item id="window-obj" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1313820/window.obj">
+            </a-asset-item>
+            <a-asset-item id="window-mtl" src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/1313820/window.mtl">
+            </a-asset-item>
+
+
+            <img id="wall-secret" src="img/other/wall-concrete-secret.jpg">
+            <img id="wall-brick" src="img/other/brick.jpg">
+            <img id="room-sign-1" src="img/other/room-sign-1.png">
+            <img id="room-sign-2" src="img/other/room-sign-2.png">
+
+            <!-- team -->
+            <img id="team-poster" src="img/poster.png">
+            <img id="team-poster1" src="img/floor/ff.gif">
+
+        </a-assets>
+
+
+        <!-- kinematic-body makes it collide instead of go through objects. -->
+        <!-- <a-entity id="player" camera universal-controls kinematic-body position="0 1.8 0">
+        </a-entity> -->
+        <a-entity id="player" camera universal-controls="movementControls: automove, gamepad, keyboard" kinematic-body
+            position="0 1.8 0">
+        </a-entity>
+
+        <a-entity windows-motion-controls="hand: left"></a-entity>
+        <a-entity windows-motion-controls="hand: right"></a-entity>
+
+        <a-entity id="walls" scale="1 2 1"></a-entity>
+
+        <a-entity>
+            <a-plane static-body src="#textture-floor1" rotation="-90 0 0" scale="70 70 20" color="#000"></a-plane>
+        </a-entity>
+        <!-- <a-entity>
+            <a-plane static-body src="#textture-floor1" rotation="-90 0 0" position="0 6.2 0" scale="70 70 20" color="#808080"></a-plane>
+        </a-entity> -->
+
+        <!-- <a-entity static-body="static-body" obj-model="obj: #window-obj; mtl: #window-mtl" position="1 1.5 -4.4" scale="1 0.5 0.5"></a-entity> -->
+
+        <!-- Ceiling -->
+        <a-box color="#FFF" width="50" height="50" position="0 6.2 0" rotation="90 0 0" src="#ceiling"></a-box>
+
+        <!-- <a-grid id="ground" static-body></a-grid> -->
+        <!-- <a-grid id="ground" static-body material="src: #texture-floor"></a-grid> -->
+        <!-- <a-scene fog="type: linear; color: #AAB; far: 10; near: 0"> -->
+
+
+        <a-sky id="sky" color="#AADDF0"></a-sky>
+        <!-- <a-sky id="sky" color="#0000ff"></a-sky> -->
+
+
+        <!-- Lighting -->
+        <a-light type="ambient" color="#ccc"></a-light>
+        <!-- <a-light color="#fff" distance="5" intensity="0.7" type="point"></a-light> -->
+
+
+
+        <a-entity position="17 0 16" rotation="0 0 0">
+            <a-entity rotation="0 90 0">
+                <a-image position="1 1.5 -4.4" src="#team-poster" height="2.5" width="5"></a-image>
+            </a-entity>
+        </a-entity>
+
+        <a-entity position="3 1.5 10" rotation="0 0 0">
+            <a-entity rotation="0 90 0">
+                <a-image src="#team-poster" height="2.5" width="5"></a-image>
+            </a-entity>
+        </a-entity>
+
+        <a-entity position="-2.3 1.5 -1" rotation="0 0 0">
+            <a-entity rotation="0 90 0">
+                <a-plane src="#team-poster1" height="2.5" width="5"></a-plane>
+            </a-entity>
+        </a-entity>
+
+        <!-- <a-entity position="14 1.5 7.7" rotation="0 -90 0">
+            <a-entity rotation="0 90 0">
+                <a-image src="#room-sign-2" height="2.5" width="5"></a-image>
+            </a-entity>
+        </a-entity> -->
+
+        <!-- <a-entity geometry="primitive:plane;" material="shader:gif; src:url(ff.gif);" scale="5 5 5" position="14 1.5 7.7"></a-entity> -->
+
+        <!-- <a-entity position="14 1.5 7.7" rotation="0 25 0" geometry="primitive:plane;"
+            material="shader:gif;src:url(https://media0.giphy.com/media/xT9IgsOaEG15pWz17y/giphy.gif)"></a-entity> -->
+
+
+
+
+    </a-scene>
+    <!-- <script>
+        document.querySelector('a-scene').addEventListener('render-target-loaded', function () {
+            var MAP_SIZE = 10,
+                PLATFORM_SIZE = 5,
+                NUM_PLATFORMS = 50;
+            var platformsEl = document.querySelector('#walls');
+            var v, box;
+            for (var i = 0; i < NUM_PLATFORMS; i++) {
+                // y: 0 is ground
+                v = {
+                    x: (Math.floor(Math.random() * MAP_SIZE) - PLATFORM_SIZE) * PLATFORM_SIZE,
+                    y: PLATFORM_SIZE / 2,
+                    z: (Math.floor(Math.random() * MAP_SIZE) - PLATFORM_SIZE) * PLATFORM_SIZE
+                };
+                box = document.createElement('a-box');
+                platformsEl.appendChild(box);
+                // box.setAttribute('color', '#39BB82');
+                box.setAttribute('material', 'src: #texture-wall');
+                box.setAttribute('width', PLATFORM_SIZE);
+                box.setAttribute('height', PLATFORM_SIZE);
+                box.setAttribute('depth', PLATFORM_SIZE);
+                box.setAttribute('position', v.x + ' ' + v.y + ' ' + v.z);
+                box.setAttribute('static-body', '');
+            }
+            console.info('Platforms loaded.');
+        });
+    </script> -->
+
+    <!-- <script>
+        AFRAME.registerComponent('automove-controls', {
+            init: function () {
+                this.speed = 0.1;
+                this.isMoving = true;
+                this.velocityDelta = new THREE.Vector3();
+            },
+            isVelocityActive: function () {
+                return this.isMoving;
+            },
+            getVelocityDelta: function () {
+                this.velocityDelta.z = this.isMoving ? -speed : 0;
+                return this.velocityDelta.clone();
+            }
+        });
+    </script> -->
+
+    <script src="./index2map.js"></script>
+
+    <script>
+        AFRAME.registerComponent('disable-inspector', {
+            dependencies: ['inspector'],
+            init: function () {
+                this.el.components.inspector.remove();
+            }
+        });
+    </script>
+</body>
+
+</html>
